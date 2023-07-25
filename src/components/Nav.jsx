@@ -23,7 +23,7 @@ const BookDetails = ({ book, onClose }) => {
   }, [book.identifier])
 
   return (
-    <div className='bookDetails'>
+    <div className='BookDetails'>
       <h2>
         <a
           href={`https://archive.org/details/${book.identifier}`}
@@ -34,8 +34,11 @@ const BookDetails = ({ book, onClose }) => {
         </a>
       </h2>
       <p className='descripTxt' >Author: </p> <p>{book.creator}</p>
-      <p className='descripTxt' >Description: </p><p>{description}</p>
-      <button onClick={onClose}>HIDE</button>
+      <div>
+        <h4>Description:</h4>
+        <p dangerouslySetInnerHTML={{ __html: description }} />
+      </div>
+      <button onClick={onClose}>CLEAR</button>
     </div>
   )
 }
@@ -69,16 +72,20 @@ const Nav = () => {
       )
 
       setBooks(audiobooks)
-
-      
+      oceanSound()
       setShowGif(true)
-
       setTimeout(() => {
         setShowGif(false)
       }, 3000)
     } catch (error) {
       console.error('Error fetching data:', error)
     }
+  }
+
+  const oceanSound =()=>{
+    let waves = new Audio('https://free-sound-effects.net/mp3/03/free-sound-1674869251.mp3')
+    waves.volume = 0.3
+    waves.play()
   }
 
   const handleKeyPress = (event) => {
