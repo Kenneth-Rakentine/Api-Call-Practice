@@ -4,27 +4,26 @@ import axios from 'axios'
 
 const BookDetails = ({ book, onClose }) => {
   const [coverUrl, setCoverUrl] = useState('')
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState('')
 
   useEffect(() => {
     const fetchCoverUrl = async () => {
       try {
         const response = await axios.get(
           `https://archive.org/metadata/${book.identifier}`
-        );
-        setCoverUrl(response.data.metadata.coverurl);
-        setDescription(response.data.metadata.description || '');
+        )
+        setCoverUrl(response.data.metadata.coverurl)
+        setDescription(response.data.metadata.description || '')
       } catch (error) {
-        console.error('Error fetching cover data:', error);
+        console.error('Error fetching cover data:', error)
       }
-    };
+    }
 
     fetchCoverUrl()
   }, [book.identifier])
 
   return (
     <div className='bookDetails'>
-      {/* <img src={coverUrl} alt='Book Cover' className='bookCover' /> */}
       <h2>
         <a
           href={`https://archive.org/details/${book.identifier}`}
@@ -92,10 +91,7 @@ const Nav = () => {
     <div className='mainContainer'>
       <div className='headContainer'>
         <h1 className='headTxt'>█▓▒▒░░░AUDIOBOOK SEARCH░░░▒▒▓█</h1>
-        
         <img src="https://media1.giphy.com/media/UoenEKiBDzhJFMQBgn/giphy.gif?cid=6c09b952hfxxkhr0ex0l20j8zwqqe3xgk723m4fsyq2yn8hm&ep=v1_stickers_related&rid=giphy.gif&ct=s" alt='ocean wave img' className='waveImg' />
-
-   
       </div>
 
       <div className='detailContainer'>
