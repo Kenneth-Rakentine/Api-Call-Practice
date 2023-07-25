@@ -33,8 +33,8 @@ const BookDetails = ({ book, onClose }) => {
           {book.title}
         </a>
       </h2>
-      <p>Author: {book.creator}</p>
-      <p>Description: {description}</p>
+      <p className='descripTxt' >Author: </p> <p>{book.creator}</p>
+      <p className='descripTxt' >Description: </p><p>{description}</p>
       <button onClick={onClose}>HIDE</button>
     </div>
   )
@@ -44,6 +44,7 @@ const Nav = () => {
   const [query, setQuery] = useState('')
   const [books, setBooks] = useState([])
   const [selectedBook, setSelectedBook] = useState(null)
+  const [showGif, setShowGif] = useState(false)
 
   const handleChange = (event) => {
     setQuery(event.target.value)
@@ -68,6 +69,13 @@ const Nav = () => {
       )
 
       setBooks(audiobooks)
+
+      
+      setShowGif(true)
+
+      setTimeout(() => {
+        setShowGif(false)
+      }, 3000)
     } catch (error) {
       console.error('Error fetching data:', error)
     }
@@ -90,14 +98,23 @@ const Nav = () => {
   return (
     <div className='mainContainer'>
       <div className='headContainer'>
-        <h1 className='headTxt'>█▓▒▒░░░AUDIOBOOK SEARCH░░░▒▒▓█</h1>
+        <h1 className='headTxt'><a className='headTxt' href='/' onClick={() => window.location.reload()}>
+            █▓▒▒░░░AUDIOBOOK SEARCH░░░▒▒▓█
+          </a></h1>
+        {showGif && ( 
+          <img
+            src="https://thumbs.gfycat.com/GrippingReflectingBasenji-max-1mb.gif"
+            alt='Loading GIF'
+            className='loadingGif'
+          />
+        )}
         <img src="https://media1.giphy.com/media/UoenEKiBDzhJFMQBgn/giphy.gif?cid=6c09b952hfxxkhr0ex0l20j8zwqqe3xgk723m4fsyq2yn8hm&ep=v1_stickers_related&rid=giphy.gif&ct=s" alt='ocean wave img' className='waveImg' />
       </div>
 
       <div className='detailContainer'>
-      {selectedBook && (
-        <BookDetails book={selectedBook} onClose={handleCloseBookDetails} />
-      )}
+        {selectedBook && (
+          <BookDetails book={selectedBook} onClose={handleCloseBookDetails} />
+        )}
       </div>
 
       <input
@@ -108,20 +125,20 @@ const Nav = () => {
         onKeyDown={handleKeyPress}
       />
 
-      <button className='srchButton' onClick={handleSearch}>FIND</button>
-
-  
+      <button className='srchButton' onClick={handleSearch}>
+        FIND
+      </button>
 
       <ul>
         {books.map((book) => (
           <ul className='resultContainer' key={book.identifier}>
             <strong>
-              <button
+              <a
                 className='titleLinkButton'
                 onClick={() => handleBookClick(book)}
               >
                 {book.title}
-              </button>
+              </a>
             </strong>
             by {book.creator}
 
@@ -136,7 +153,7 @@ const Nav = () => {
       </ul>
     </div>
   )
-};
+}
 
   
 

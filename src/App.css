@@ -180,7 +180,7 @@ transform: rotatez(-10deg) 6s;
 
 .waveImg{
   width:212%;
-  opacity:.5;
+  opacity:.25;
 }
 
 .detailContainer{
@@ -211,6 +211,7 @@ transform: rotatez(-10deg) 6s;
 button{
   background-color: rgb(161, 231, 231);
   border:none;
+  border-radius:4px;
 }
 
 /* button:hover{
@@ -221,3 +222,12 @@ outline:none;
 box-shadow: 0px 0px 2px 4px aqua;
 transition: .3s;
 } */
+
+.descripTxt{
+  font-weight:bold;
+}
+
+.loadingGif{
+  opacity:.4;
+  color:rgba(30, 224, 163, 0.925);
+}
