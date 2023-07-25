@@ -4,18 +4,20 @@ import axios from 'axios'
 
 const BookDetails = ({ book, onClose }) => {
   const [coverUrl, setCoverUrl] = useState('')
+  const [description, setDescription] = useState('');
 
   useEffect(() => {
     const fetchCoverUrl = async () => {
       try {
         const response = await axios.get(
           `https://archive.org/metadata/${book.identifier}`
-        )
-        setCoverUrl(response.data.metadata.coverurl)
+        );
+        setCoverUrl(response.data.metadata.coverurl);
+        setDescription(response.data.metadata.description || '');
       } catch (error) {
-        console.error('Error fetching cover data:', error)
+        console.error('Error fetching cover data:', error);
       }
-    }
+    };
 
     fetchCoverUrl()
   }, [book.identifier])
@@ -32,8 +34,8 @@ const BookDetails = ({ book, onClose }) => {
           {book.title}
         </a>
       </h2>
-      <p>Creator: {book.creator}</p>
-      <p>Subject: {Array.isArray(book.subject) ? book.subject.join(', ') : book.subject}</p>
+      <p>Author: {book.creator}</p>
+      <p>Description: {description}</p>
       <button onClick={onClose}>HIDE</button>
     </div>
   )
